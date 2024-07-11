@@ -44,11 +44,12 @@ public class CacheHelper {
                         ResourcePoolsBuilder.heap(10_000_000L)
                 ));
 
-        final Path path = Paths.get("C:/Users/Adel.Albediwy/Desktop/ehcache/");
-        File ehcacheFile = path.toFile();
-        if(Files.notExists(path)){
-            ehcacheFile = Files.createDirectory(path).toFile();
-        }
+//        final Path path = Paths.get("C:/Users/Adel.Albediwy/Desktop/ehcache/");
+//        File ehcacheFile = path.toFile();
+//        if(Files.notExists(path)){
+//            ehcacheFile = Files.createDirectory(path).toFile();
+//        }
+        final File ehcacheFile = Files.createTempDirectory("ehcache").toFile();
         persistentCacheManager = CacheManagerBuilder
                 .newCacheManagerBuilder()
                 .with(CacheManagerBuilder.persistence(ehcacheFile))
@@ -59,8 +60,7 @@ public class CacheHelper {
                 CacheConfigurationBuilder.newCacheConfigurationBuilder(
                         String.class, Bar.class,
                         ResourcePoolsBuilder.newResourcePoolsBuilder()
-                                .heap(10_000_000L, EntryUnit.ENTRIES)
-                                .disk(100L, MemoryUnit.MB, true)
+                                .disk(10L, MemoryUnit.GB, true)
                 ));
     }
 
